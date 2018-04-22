@@ -27,7 +27,7 @@ public class SocialNetworkApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 
-		List<Person> randoms = neo4JPersonRepository.find10randomPersons();
+		List<Person> randoms = neo4JPersonRepository.find20randomPersons();
 
 
 		StopWatch stopWatch = new StopWatch();
@@ -48,7 +48,7 @@ public class SocialNetworkApplication implements CommandLineRunner {
 			neo4jTimesArray[j] = stopWatch.getLastTaskTimeMillis();
 
 			stopWatch.start("Fetching PostgreSQL with depth 1");
-			postgresRepository.findByName(randoms.get(j).getName()).getEndorsements().size();
+			postgresRepository.findEndorsementsByName(randoms.get(j).getName());
 			stopWatch.stop();
 			postgresTimesArray[j] = stopWatch.getLastTaskTimeMillis();
 		}
@@ -68,6 +68,7 @@ public class SocialNetworkApplication implements CommandLineRunner {
 			neo4jTimesArray[j] = stopWatch.getLastTaskTimeMillis();
 
 			stopWatch.start("Fetching PostgreSQL with depth 2");
+			postgresRepository.findEndorsementsByNameDepth2(randoms.get(j).getName());
 			stopWatch.stop();
 			postgresTimesArray[j] = stopWatch.getLastTaskTimeMillis();
 		}
@@ -88,6 +89,7 @@ public class SocialNetworkApplication implements CommandLineRunner {
 			neo4jTimesArray[j] = stopWatch.getLastTaskTimeMillis();
 
 			stopWatch.start("Fetching PostgreSQL with depth 3");
+			postgresRepository.findEndorsementsByNameDepth3(randoms.get(j).getName());
 			stopWatch.stop();
 			postgresTimesArray[j] = stopWatch.getLastTaskTimeMillis();
 		}
@@ -107,6 +109,7 @@ public class SocialNetworkApplication implements CommandLineRunner {
 			neo4jTimesArray[j] = stopWatch.getLastTaskTimeMillis();
 
 			stopWatch.start("Fetching PostgreSQL with depth 4");
+			postgresRepository.findEndorsementsByNameDepth4(randoms.get(j).getName());
 			stopWatch.stop();
 			postgresTimesArray[j] = stopWatch.getLastTaskTimeMillis();
 		}
@@ -126,6 +129,7 @@ public class SocialNetworkApplication implements CommandLineRunner {
 			neo4jTimesArray[j] = stopWatch.getLastTaskTimeMillis();
 
 			stopWatch.start("Fetching PostgreSQL with depth " + depth);
+			postgresRepository.findEndorsementsByNameDepth5(randoms.get(j).getName());
 			stopWatch.stop();
 			postgresTimesArray[j] = stopWatch.getLastTaskTimeMillis();
 		}
