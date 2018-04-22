@@ -9,10 +9,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.util.StopWatch;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Timer;
+import java.util.*;
 
 @SpringBootApplication
 public class SocialNetworkApplication implements CommandLineRunner {
@@ -43,111 +40,127 @@ public class SocialNetworkApplication implements CommandLineRunner {
 
 		int depth = 1;
 
-		// Depth 1
-//		for (int j = 0; j < randoms.size(); j++) {
-//			stopWatch.start("Fetching Neo4J with depth 1");
-//			neo4JPersonRepository.findEndorsements(randoms.get(j).getName());
-//			stopWatch.stop();
-//			neo4jTimesArray[j] = stopWatch.getLastTaskTimeMillis();
-//
-//			stopWatch.start("Fetching PostgreSQL with depth 1");
-//			postgresRepository.findEndorsements(randoms.get(j).getName());
-//			stopWatch.stop();
-//			postgresTimesArray[j] = stopWatch.getLastTaskTimeMillis();
-//		}
-//
-//		neo4jTimes.put(depth, neo4jTimesArray);
-//		postgresTimes.put(depth, postgresTimesArray);
-//		depth++;
-//
-//		neo4jTimesArray = new long[20];
-//		postgresTimesArray = new long[20];
-
-//		// Depth 2
+//		Depth 1
 		for (int j = 0; j < randoms.size(); j++) {
 			stopWatch.start("Fetching Neo4J with depth 1");
-			neo4JPersonRepository.findEndorsementsDepth2(randoms.get(j).getName());
+			neo4JPersonRepository.findEndorsements(randoms.get(j).getName());
 			stopWatch.stop();
 			neo4jTimesArray[j] = stopWatch.getLastTaskTimeMillis();
 
 			stopWatch.start("Fetching PostgreSQL with depth 1");
-			postgresRepository.findEndorsementsDepth2(randoms.get(j).getName());
+			postgresRepository.findByName(randoms.get(j).getName()).getEndorsements().size();
 			stopWatch.stop();
 			postgresTimesArray[j] = stopWatch.getLastTaskTimeMillis();
 		}
 
-		for (int i = 0; i < neo4jTimesArray.length; i++) {
-			System.out.println("Neo4J time: " + neo4jTimesArray[i]);
-			System.out.println("Postgres time: " + postgresTimesArray[i]);
+		neo4jTimes.put(depth, neo4jTimesArray);
+		postgresTimes.put(depth, postgresTimesArray);
+		depth++;
+
+		neo4jTimesArray = new long[20];
+		postgresTimesArray = new long[20];
+
+//		Depth 2
+		for (int j = 0; j < randoms.size(); j++) {
+			stopWatch.start("Fetching Neo4J with depth 2");
+			neo4JPersonRepository.findEndorsementsDepth2(randoms.get(j).getName());
+			stopWatch.stop();
+			neo4jTimesArray[j] = stopWatch.getLastTaskTimeMillis();
+
+			stopWatch.start("Fetching PostgreSQL with depth 2");
+			stopWatch.stop();
+			postgresTimesArray[j] = stopWatch.getLastTaskTimeMillis();
 		}
-//
-//		neo4jTimes.put(depth, neo4jTimesArray);
-//		postgresTimes.put(depth, postgresTimesArray);
-//		depth++;
-//
-//		neo4jTimesArray = new long[20];
-//		postgresTimesArray = new long[20];
-//
-//		// Depth 3
-//		for (int j = 0; j < randoms.size(); j++) {
-//			stopWatch.start("Fetching Neo4J with depth 1");
-//			neo4JPersonRepository.findEndorsementsDepth3(randoms.get(j).getName());
-//			stopWatch.stop();
-//			neo4jTimesArray[j] = stopWatch.getLastTaskTimeMillis();
-//
-//			stopWatch.start("Fetching PostgreSQL with depth 1");
-//			postgresRepository.findEndorsements(randoms.get(j).getName());
-//			stopWatch.stop();
-//			postgresTimesArray[j] = stopWatch.getLastTaskTimeMillis();
-//		}
-//
-//		neo4jTimes.put(depth, neo4jTimesArray);
-//		postgresTimes.put(depth, postgresTimesArray);
-//		depth++;
-//
-//		neo4jTimesArray = new long[20];
-//		postgresTimesArray = new long[20];
-//
-//		// Depth 4
-//		for (int j = 0; j < randoms.size(); j++) {
-//			stopWatch.start("Fetching Neo4J with depth 1");
-//			neo4JPersonRepository.findEndorsementsDepth4(randoms.get(j).getName());
-//			stopWatch.stop();
-//			neo4jTimesArray[j] = stopWatch.getLastTaskTimeMillis();
-//
-//			stopWatch.start("Fetching PostgreSQL with depth 1");
-//			postgresRepository.findEndorsements(randoms.get(j).getName());
-//			stopWatch.stop();
-//			postgresTimesArray[j] = stopWatch.getLastTaskTimeMillis();
-//		}
-//
-//		neo4jTimes.put(depth, neo4jTimesArray);
-//		postgresTimes.put(depth, postgresTimesArray);
-//		depth++;
-//
-//		neo4jTimesArray = new long[20];
-//		postgresTimesArray = new long[20];
-//
-//		// Depth 5
-//		for (int j = 0; j < randoms.size(); j++) {
-//			stopWatch.start("Fetching Neo4J with depth 1");
-//			neo4JPersonRepository.findEndorsementsDepth5(randoms.get(j).getName());
-//			stopWatch.stop();
-//			neo4jTimesArray[j] = stopWatch.getLastTaskTimeMillis();
-//
-//			stopWatch.start("Fetching PostgreSQL with depth 1");
-//			postgresRepository.findEndorsements(randoms.get(j).getName());
-//			stopWatch.stop();
-//			postgresTimesArray[j] = stopWatch.getLastTaskTimeMillis();
-//		}
-//
-//		neo4jTimes.put(depth, neo4jTimesArray);
-//		postgresTimes.put(depth, postgresTimesArray);
 
 
+		neo4jTimes.put(depth, neo4jTimesArray);
+		postgresTimes.put(depth, postgresTimesArray);
+		depth++;
 
-		// Calculate average for each depth and each tech
+		neo4jTimesArray = new long[20];
+		postgresTimesArray = new long[20];
 
-		// Calculate median for each depth and each tech
+		// Depth 3
+		for (int j = 0; j < randoms.size(); j++) {
+			stopWatch.start("Fetching Neo4J with depth 3");
+			neo4JPersonRepository.findEndorsementsDepth3(randoms.get(j).getName());
+			stopWatch.stop();
+			neo4jTimesArray[j] = stopWatch.getLastTaskTimeMillis();
+
+			stopWatch.start("Fetching PostgreSQL with depth 3");
+			stopWatch.stop();
+			postgresTimesArray[j] = stopWatch.getLastTaskTimeMillis();
+		}
+
+		neo4jTimes.put(depth, neo4jTimesArray);
+		postgresTimes.put(depth, postgresTimesArray);
+		depth++;
+
+		neo4jTimesArray = new long[20];
+		postgresTimesArray = new long[20];
+
+		// Depth 4
+		for (int j = 0; j < randoms.size(); j++) {
+			stopWatch.start("Fetching Neo4J with depth 1");
+			neo4JPersonRepository.findEndorsementsDepth4(randoms.get(j).getName());
+			stopWatch.stop();
+			neo4jTimesArray[j] = stopWatch.getLastTaskTimeMillis();
+
+			stopWatch.start("Fetching PostgreSQL with depth 4");
+			stopWatch.stop();
+			postgresTimesArray[j] = stopWatch.getLastTaskTimeMillis();
+		}
+
+		neo4jTimes.put(depth, neo4jTimesArray);
+		postgresTimes.put(depth, postgresTimesArray);
+		depth++;
+
+		neo4jTimesArray = new long[20];
+		postgresTimesArray = new long[20];
+
+		// Depth 5
+		for (int j = 0; j < randoms.size(); j++) {
+			stopWatch.start("Fetching Neo4J with depth " + depth);
+			List<Person> persons = neo4JPersonRepository.findEndorsementsDepth5(randoms.get(j).getName());
+			stopWatch.stop();
+			neo4jTimesArray[j] = stopWatch.getLastTaskTimeMillis();
+
+			stopWatch.start("Fetching PostgreSQL with depth " + depth);
+			stopWatch.stop();
+			postgresTimesArray[j] = stopWatch.getLastTaskTimeMillis();
+		}
+
+		neo4jTimes.put(depth, neo4jTimesArray);
+		postgresTimes.put(depth, postgresTimesArray);
+
+		System.out.println("PostgreSQL ------------  Neo4j");
+		System.out.println("avg -- median -------- avg -- median");
+		for (int i = 1; i <= depth; i++) {
+
+			long postgresAvg;
+			long postgresMedian;
+			long neo4jAvg;
+			long neo4jMedian;
+
+			long neoTotal = 0;
+			long postTotal = 0;
+			for (int j = 0; j < 20; j++) {
+				neoTotal += neo4jTimes.get(i)[j];
+				postTotal += postgresTimes.get(i)[j];
+			}
+
+			neo4jAvg = neoTotal / 20;
+			postgresAvg = postTotal / 20;
+
+			Arrays.sort(neo4jTimes.get(i));
+			Arrays.sort(postgresTimes.get(i));
+
+			assert(postgresTimes.get(i)[10] < postgresTimes.get(i)[11]);
+			assert(neo4jTimes.get(i)[10] < neo4jTimes.get(i)[11]);
+			postgresMedian = postgresTimes.get(i)[postgresTimes.get(i).length / 2];
+			neo4jMedian = neo4jTimes.get(i)[neo4jTimes.get(i).length / 2];
+
+			System.out.println("Depth " + i +  ":     " + postgresAvg + " -- " + postgresMedian + " ---- " + neo4jAvg + " -- " + neo4jMedian);
+		}
 	}
 }

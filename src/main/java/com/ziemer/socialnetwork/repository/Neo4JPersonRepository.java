@@ -9,21 +9,21 @@ import java.util.List;
 
 public interface Neo4JPersonRepository extends CrudRepository<Person, Long> {
 
-    @Query("MATCH (a) RETURN a, rand() as r ORDER BY r LIMIT 20")
+    @Query("MATCH (a) RETURN a, rand() as r ORDER BY r LIMIT 20;")
     List<Person> find10randomPersons();
 
-    @Query("MATCH (:Person {name:{personName}})-[:ENDORSES]->(p:Person) RETURN p")
+    @Query("MATCH ({name:{personName}})-[:ENDORSES]->(other) RETURN other;")
     List<Person> findEndorsements(@Param("personName") String name);
 
-    @Query("MATCH (:Person {name:{personName}})-[:ENDORSES*2]->(p:Person) RETURN p")
+    @Query("MATCH ({name:{personName}})-[:ENDORSES*..2]->(other) RETURN other;")
     List<Person> findEndorsementsDepth2(@Param("personName") String name);
 
-    @Query("MATCH (:Person {name:{personName}})-[:ENDORSES*3]->(p:Person) RETURN p")
+    @Query("MATCH ({name:{personName}})-[:ENDORSES*..3]->(other) RETURN other;")
     List<Person> findEndorsementsDepth3(@Param("personName") String name);
 
-    @Query("MATCH (:Person {name:{personName}})-[:ENDORSES*4]->(p:Person) RETURN p")
+    @Query("MATCH ({name:{personName}})-[:ENDORSES*..4]->(other) RETURN other;")
     List<Person> findEndorsementsDepth4(@Param("personName") String name);
 
-    @Query("MATCH (:Person {name:{personName}})-[:ENDORSES*5]->(p:Person) RETURN p")
+    @Query("MATCH ({name:{personName}})-[:ENDORSES*..5]->(other) RETURN other;")
     List<Person> findEndorsementsDepth5(@Param("personName") String name);
 }

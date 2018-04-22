@@ -9,17 +9,5 @@ import java.util.List;
 
 public interface PostgresRepository extends CrudRepository<Person, Long> {
 
-    @Query(value = "SELECT * FROM social_network.social_network_nodes AS sn JOIN social_network.social_network_edges AS se ON sn.name = ?1 AND sn.node_id = se.source_node_id;",
-            nativeQuery = true)
-    List<Person> findEndorsements(String name);
-
-    @Query(value = "",
-            nativeQuery = true)
-    List<Person> findEndorsementsDepth2(@Param("personName") String name);
-//
-//    List<Person> findEndorsementsDepth3(@Param("personName") String name);
-//
-//    List<Person> findEndorsementsDepth4(@Param("personName") String name);
-//
-//    List<Person> findEndorsementsDepth5(@Param("personName") String name);
+    Person findByName(String name);
 }

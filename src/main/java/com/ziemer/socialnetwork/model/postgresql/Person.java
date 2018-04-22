@@ -1,10 +1,9 @@
 package com.ziemer.socialnetwork.model.postgresql;
 
-import org.neo4j.ogm.annotation.NodeEntity;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -12,7 +11,7 @@ import java.util.Set;
 public class Person implements Serializable {
     @Id
     @Column(name = "node_id")
-    private long id;
+    private String id;
 
     private String name;
 
@@ -20,8 +19,13 @@ public class Person implements Serializable {
 
     private LocalDate birthday;
 
-    @OneToMany
-    public Set<Person> endorsements;
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "social_network_edges", joinColumns = @JoinColumn(name = "source_node_id"), inverseJoinColumns = @JoinColumn(name = "target_node_id"))
+    public List<Person> endorsements;
+
+    @ManyToMany
+    @JoinTable(name = "social_network_edges", joinColumns = @JoinColumn(name = "target_node_id"), inverseJoinColumns = @JoinColumn(name = "source_node_id"))
+    public List<Person> endorsedBy;
 
     public Person() {
     }
@@ -50,11 +54,11 @@ public class Person implements Serializable {
         this.birthday = birthday;
     }
 
-    public Set<Person> getEndorsements() {
+    public List<Person> getEndorsements() {
         return endorsements;
     }
 
-    public void setEndorsements(Set<Person> endorsements) {
+    public void setEndorsements(List<Person> endorsements) {
         this.endorsements = endorsements;
     }
 }
