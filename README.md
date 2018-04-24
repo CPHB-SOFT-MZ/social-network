@@ -21,9 +21,13 @@ The results of the benchmark is presented here. Note that the depth of 5 is not 
 since it ran out of memory no matter how I tuned it. 
 
 
-| depth | PostgreSQL || Neo4j ||
+| depth | PostgreSQL Average | PostgreSQL Median | Neo4j Average | Neo4j Median |
 | --- | --- | ----- | --- | --- |
-| 1| avg | median | avg | median |
+| 1   | 31  | 23    | 296 | 273 |
+| 2   | 33  | 33    | 339 | 329 |
+| 3   | 309 | 141   | 988 | 575 |
+| 4   | 3159| 1350  | 2160| 1129|
+| 5   | -   | -     | 25000 | 15397 |
 
 
 
