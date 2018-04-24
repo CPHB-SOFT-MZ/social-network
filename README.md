@@ -29,5 +29,9 @@ since it ran out of memory no matter how I tuned it.
 | 4   | 3159| 1350  | 2160| 1129|
 | 5   | -   | -     | 25000 | 15397 |
 
+What we can conclude from these results is, that PostgreSQL is quite fast until you 
+reach depth 4 and 5. Neo4j does of course also get slower, but it doesn't crash and 
+it can actually fetch huge amounts of data in a reasonable amount of time.  
+
 
 
