@@ -13,7 +13,7 @@ project in the `model` package. (Note: the project assumes that the ID of the Pe
 
 ## How to run
 1. Clone this project
-2. After that you should just be able to run the project. From commandline: `mvn spring-boot:run`
+2. After that you should just be able to run the project. From commandline: `mvn spring-boot:run -DskipTests`
 
 
 ## Results
