@@ -129,7 +129,7 @@ public class SocialNetworkApplication implements CommandLineRunner {
 			neo4jTimesArray[j] = stopWatch.getLastTaskTimeMillis();
 
 			stopWatch.start("Fetching PostgreSQL with depth " + depth);
-			postgresRepository.findEndorsementsByNameDepth5(randoms.get(j).getName());
+//			postgresRepository.findEndorsementsByNameDepth5(randoms.get(j).getName());
 			stopWatch.stop();
 			postgresTimesArray[j] = stopWatch.getLastTaskTimeMillis();
 		}
